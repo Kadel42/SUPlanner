@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SUPlannerLibraries
 {
-    interface IDataConnector
+    public interface IDataConnector
     {
         void CreateSpis(SpisModel spis);
         void CreatePodklad(PodkladModel podklad);

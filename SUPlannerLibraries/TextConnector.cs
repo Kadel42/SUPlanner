@@ -20,12 +20,12 @@ namespace SUPlannerLibraries
 
         public List<PodkladModel> GetPodklad_All()
         {
-            throw new NotImplementedException();
+            return GlobalConfig.podkladFile.FullFilePath().LoadFile().ConvertToPodkladModels();
         }
 
         public List<SpisModel> GetSpis_All()
         {
-            throw new NotImplementedException();
+            return GlobalConfig.spisFile.FullFilePath().LoadFile().ConvertToSpisModels();
         }
     }
 }

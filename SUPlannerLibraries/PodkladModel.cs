@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SUPlannerLibraries
 {
-    class PodkladModel
+    public class PodkladModel
     {
         public int Id { get; set; }
         public int SpisId { get; set; }

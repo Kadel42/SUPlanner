@@ -19,7 +19,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="subjuctTextBlock" Text="Empty string" Grid.Column="1"
+        <TextBlock x:Name="subjuctTextBlock" Text="" Grid.Column="1"
                    Grid.Row="1"/>
         <TextBox x:Name="notesTextBox" Grid.Column="1" Grid.Row="2" Margin="0,5,5,0" TextWrapping="Wrap"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>

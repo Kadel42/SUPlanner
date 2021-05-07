@@ -35,15 +35,20 @@
         <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="13">
             <DataGrid x:Name="spisyDataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
-                  AlternatingRowBackground="LightGray"
-                  Grid.ColumnSpan="1" SelectionMode="Single" >
+                  AlternatingRowBackground="LightGray" AutoGenerateColumns="False"
+                  Grid.ColumnSpan="1" SelectionMode="Single" CanUserAddRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="#" MinWidth="40" Width="40"/>
-                    <DataGridTextColumn Header="Žadatel" MinWidth="60" Width="*"/>
-                    <DataGridTextColumn Header="Věc" MinWidth="60" Width="*"/>
-                    <DataGridTextColumn Header="Datum přijetí" MinWidth="60" Width="*"/>
-                    <DataGridTextColumn Header="Limitní datum" MinWidth="60" Width="*"/>
-                    <DataGridTextColumn Header="Typ" MinWidth="60" Width="*"/>
+                    <DataGridTextColumn Header="#" x:Name="cisloColumn" MinWidth="40" Width="40"
+                                        Binding="{Binding Path=Cislo}"/>
+                    <DataGridTextColumn Header="Žadatel" x:Name="zadatelColumn"
+                                        MinWidth="60" Width="*" Binding="{Binding Path=Zadatel}"/>
+                    <DataGridTextColumn Header="Věc" x:Name="vecColumn" MinWidth="60" Width="2*"
+                                        Binding="{Binding Path=Vec}"/>
+                    <DataGridTextColumn Header="Datum přijetí" x:Name="prijetiColumn" MinWidth="60" Width="auto"
+                                        Binding="{Binding Path=DatumPridani,StringFormat=dd.MM.yyyy}"/>
+                    <DataGridTextColumn Header="Limitní datum" x:Name="limitColumn" MinWidth="60" Width="auto"
+                                        Binding="{Binding Path=LimitniDatum,StringFormat=dd.MM.yyyy}"/>
+                    <DataGridTextColumn Header="Typ" MinWidth="60" Width="auto" Binding="{Binding Path=Typ}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -57,7 +62,7 @@
             Upravit
         </Button>
         <Button x:Name="removeButton" Grid.Column="3" Grid.Row="5" FontSize="16" Height="40"
-                Width="100" HorizontalAlignment="Right" Background="#FF719DEC" BorderBrush="#FF38A4BB">
+                Width="100" HorizontalAlignment="Right" Background="#FF719DEC" BorderBrush="#FF38A4BB" Click="removeButton_Click">
             Odebrat
         </Button>
         <Button x:Name="soupisButton" Grid.Column="3" Grid.Row="7" FontSize="16" Height="40"

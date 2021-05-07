@@ -1,5 +1,7 @@
-﻿using System;
+﻿using SUPlannerLibraries;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,28 +24,47 @@ namespace SUPlanner
     {
         public MainWindow()
         {
+            if (!Directory.Exists(GlobalConfig.filePath))
+            {
+                Directory.CreateDirectory(GlobalConfig.filePath);
+            }
+            GlobalConfig.InitializeConnections();
+            
+            
             InitializeComponent();
+           
+        }
+
+
+        private void WireUpDataGrid()
+        {
+            
         }
 
         private void notesButton_Click(object sender, RoutedEventArgs e)
         {
             Notes notes = new Notes();
-            notes.InitializeComponent();
+            
             notes.Show();
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             Spis spis = new Spis();
-            spis.InitializeComponent();
+            
             spis.Show();
         }
 
         private void soupisButton_Click(object sender, RoutedEventArgs e)
         {
             SoupisSpisu soupis = new SoupisSpisu();
-            soupis.InitializeComponent();
+            
             soupis.Show();
+        }
+
+        private void removeButton_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
