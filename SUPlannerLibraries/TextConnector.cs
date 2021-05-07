@@ -13,9 +13,37 @@ namespace SUPlannerLibraries
             throw new NotImplementedException();
         }
 
-        public void CreateSpis(SpisModel spis)
+        public void CreateSpis(SpisModel model)
         {
-            throw new NotImplementedException();
+            List<SpisModel> spisy = GlobalConfig.spisFile.FullFilePath().LoadFile().ConvertToSpisModels();
+            int currentId = 1;
+
+            if (spisy.Count > 0)
+            {
+                currentId = spisy.OrderByDescending(x => x.Id).First().Id + 1;
+            }
+
+            model.Id = currentId;
+
+            model.Notes = "";
+            model.Typ = "Zahájeni";
+            spisy.Add(model);
+            spisy.SaveToSpisFile();
+
+            //if (tournaments.Count > 0)
+            //{
+            //    currentId = tournaments.OrderByDescending(x => x.Id).First().Id + 1;
+            //}
+
+            //model.Id = currentId;
+
+            //model.SaveRoundsToFile();
+
+            //tournaments.Add(model);
+
+            //tournaments.SaveToTournamentFile();
+
+            //TournamentLogic.UpdateTournamentResults(model);
         }
 
         public List<PodkladModel> GetPodklad_All()

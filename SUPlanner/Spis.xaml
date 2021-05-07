@@ -47,7 +47,7 @@
         <DatePicker x:Name="podaniDatePicker" Grid.Column="1" Grid.Row="3"/>
         <DatePicker x:Name="limitDatePicker" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="1" Width="125" HorizontalAlignment="Left" Margin="10,0,0,0"/>
         <Button x:Name="ulozSpisButton" Content="Ulož" Grid.Column="3" Grid.Row="4" Width="100" Height="40" Background="#FF719DEC"
-                BorderBrush="#FF38A4BB" Margin="5,5,0,0"/>
+                BorderBrush="#FF38A4BB" Margin="5,5,0,0" Click="ulozSpisButton_Click"/>
         <xctk:IntegerUpDown x:Name="cisloSpisuIntegerUpDown" Grid.Column="3" Grid.Row="3" Margin="5,0,0,0"/>
     </Grid>
 </Window>

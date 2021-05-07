@@ -23,15 +23,33 @@ namespace SUPlannerLibraries
 
             return File.ReadAllLines(file).ToList();
         }
+
+        public static void SaveToSpisFile(this List<SpisModel> models)
+        {
+            List<string> lines = new();
+            foreach (SpisModel p in models)
+            {
+                lines.Add($"{ p.Id }&^&{ p.Cislo }&^&{ p.Zadatel }&^&{ p.Vec }&^&{ p.DatumPridani }&^&{ p.LimitniDatum }&^&{ p.Typ }&^&{ p.Notes }");
+            }
+
+
+            File.WriteAllLines(GlobalConfig.spisFile.FullFilePath(), lines);
+        }
+
         public static List<PodkladModel> ConvertToPodkladModels(this List<string> lines)
         {
-            List<PodkladModel> output = new List<PodkladModel>();
+            List<PodkladModel> output = new();
             foreach (string line in lines)
             {
                 string[] cols = line.Split("&^&");
 
-                PodkladModel p = new PodkladModel();
+                PodkladModel p = new();
                 p.Id = int.Parse(cols[0]);
+                p.SpisId = int.Parse(cols[1]);
+                p.Podklad = cols[2];
+                p.DatumPridani = DateTime.Parse(cols[3]);
+
+                output.Add(p);
 
             }
             return output;
@@ -39,12 +57,12 @@ namespace SUPlannerLibraries
 
         public static List<SpisModel> ConvertToSpisModels(this List<string> lines)
         {
-            List<SpisModel> output = new List<SpisModel>();
+            List<SpisModel> output = new();
             foreach (string line in lines)
             {
                 string[] cols = line.Split("&^&");
 
-                SpisModel p = new SpisModel();
+                SpisModel p = new();
                 p.Id = int.Parse(cols[0]);
                 p.Cislo = int.Parse(cols[1]);
                 p.Zadatel = cols[2];

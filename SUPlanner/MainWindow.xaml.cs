@@ -20,7 +20,7 @@ namespace SUPlanner
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, ISpisRequest
     {
         public MainWindow()
         {
@@ -32,32 +32,34 @@ namespace SUPlanner
             
             
             InitializeComponent();
+            WireUpDataGrid();
            
         }
 
 
         private void WireUpDataGrid()
         {
-            
+            List<SpisModel> model = GlobalConfig.spisFile.FullFilePath().LoadFile().ConvertToSpisModels();
+            spisyDataGrid.ItemsSource = model; 
         }
 
         private void notesButton_Click(object sender, RoutedEventArgs e)
         {
-            Notes notes = new Notes();
+            Notes notes = new();
             
             notes.Show();
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            Spis spis = new Spis();
+            Spis spis = new(this);
             
             spis.Show();
         }
 
         private void soupisButton_Click(object sender, RoutedEventArgs e)
         {
-            SoupisSpisu soupis = new SoupisSpisu();
+            SoupisSpisu soupis = new();
             
             soupis.Show();
         }
@@ -65,6 +67,11 @@ namespace SUPlanner
         private void removeButton_Click(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        public void SpisComplete()
+        {
+            WireUpDataGrid();
         }
     }
 }

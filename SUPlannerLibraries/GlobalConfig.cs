@@ -16,7 +16,7 @@ namespace SUPlannerLibraries
 
         public static void InitializeConnections()
         {
-            TextConnector text = new TextConnector();
+            TextConnector text = new();
             Connection = text;
         }
 

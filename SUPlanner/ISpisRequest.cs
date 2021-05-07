@@ -1,0 +1,14 @@
+﻿using SUPlannerLibraries;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SUPlanner
+{
+    public interface ISpisRequest
+    {
+        void SpisComplete();
+    }
+}
