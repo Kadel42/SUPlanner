@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SUPlanner"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        
+        
+        
         mc:Ignorable="d"
-        Title="Spis" MinHeight="230" MinWidth="430" MaxHeight="230" MaxWidth="430"
+        Title="Spis" MinHeight="300" MinWidth="430" MaxHeight="300" MaxWidth="430"
         ResizeMode="NoResize" FontSize="16" Background="#FFCCE8E5">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -35,19 +37,70 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <TextBlock Text="Žadatel:" Grid.Column="0" Grid.Row="0" />
             <TextBox x:Name="zadatelTextBox" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" Margin="5,0,5,0" />
             <TextBlock Text="Věc:" Grid.Column="0" Grid.Row="1" Margin="0,5,0,0" />
             <TextBox x:Name="vecTextBox" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Margin="5,5,5,0" />
+            <TextBlock Text="Spis zn.:" Grid.Column="0" Grid.Row="2" Margin="0,5,0,0" />
+            <TextBox x:Name="spisZnTextBox" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Margin="5,5,5,0" />
 
         </Grid>
         <TextBlock Text="Datum podání:" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" Margin="0,20,0,0" />
         <TextBlock Text="Limitní datum:" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="2" Margin="10,20,0,0" />
-        <DatePicker x:Name="podaniDatePicker" Grid.Column="1" Grid.Row="3"/>
-        <DatePicker x:Name="limitDatePicker" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="1" Width="125" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+        <DatePicker x:Name="podaniDatePicker" Grid.Column="1" Grid.Row="3" Width="125" FirstDayOfWeek="Monday" />
+        <DatePicker x:Name="limitDatePicker" Grid.Column="2" Grid.Row="3" Width="125" HorizontalAlignment="Left" Margin="10,0,0,0"  
+                    FirstDayOfWeek="Monday" />
+
+        
         <Button x:Name="ulozSpisButton" Content="Ulož" Grid.Column="3" Grid.Row="4" Width="100" Height="40" Background="#FF719DEC"
-                BorderBrush="#FF38A4BB" Margin="5,5,0,0" Click="ulozSpisButton_Click"/>
-        <xctk:IntegerUpDown x:Name="cisloSpisuIntegerUpDown" Grid.Column="3" Grid.Row="3" Margin="5,0,0,0"/>
+                BorderBrush="#FF38A4BB" Margin="5,15,0,0" Click="ulozSpisButton_Click" VerticalAlignment="Bottom"/>
+        
+        <Grid Grid.Column="1" Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Typ:" Grid.Column="0" Grid.Row="0" Margin="0,5,0,0" />
+            <ComboBox x:Name="typComboBox" SelectedValuePath="Content" Grid.Column="0" Grid.Row="1" Margin="0,3,0,0" Width="125">
+                <ComboBoxItem Content="Žádosti" IsSelected="True"/>
+                <ComboBoxItem Content="Zahájení"/>
+                <ComboBoxItem Content="Výzvy"/>
+                <ComboBoxItem Content="Rozhodnutí"/>
+            </ComboBox>
+        </Grid>
+        <Grid Grid.Column="3" Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="cisloTextBox" Grid.Column="0" Grid.Row="1" Width="60" Height="30"
+                     VerticalAlignment="Bottom" HorizontalAlignment="Right" IsEnabled="False" Text="1" HorizontalContentAlignment="Right"/>
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="upCisloButton" Grid.Column="0" Grid.Row="0" Content="^" Height="15" Width="15" FontSize="12"
+                        VerticalContentAlignment="Bottom" FontWeight="Bold" Click="upCisloButton_Click"/>
+                <Button x:Name="downCisloButton" Grid.Column="0" Grid.Row="1" Content="˅" Height="15" Width="15" FontSize="11"
+                        VerticalContentAlignment="Top" FontWeight="Bold" HorizontalContentAlignment="Center" Click="downCisloButton_Click"/>
+            </Grid>
+
+        </Grid>
+
+        
     </Grid>
+    
 </Window>

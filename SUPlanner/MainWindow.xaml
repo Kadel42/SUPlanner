@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SUPlanner"
         mc:Ignorable="d"
-        Title="SU Planner" Height="450" Width="800" MinHeight="400" MinWidth="600" Background="#FFCCE8E5"
+        Title="SU Planner" Height="600" Width="1000" MinHeight="450" MinWidth="700" Background="#FFCCE8E5"
         FontSize="16">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -40,6 +40,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="#" x:Name="cisloColumn" MinWidth="40" Width="40"
                                         Binding="{Binding Path=Cislo}"/>
+                    <DataGridTextColumn Header="Spis. Zn." x:Name="spisZnColumn" MinWidth="60" Width="auto"
+                                        Binding="{Binding Path=SpisZn}"/>
                     <DataGridTextColumn Header="Žadatel" x:Name="zadatelColumn"
                                         MinWidth="60" Width="*" Binding="{Binding Path=Zadatel}"/>
                     <DataGridTextColumn Header="Věc" x:Name="vecColumn" MinWidth="60" Width="2*"

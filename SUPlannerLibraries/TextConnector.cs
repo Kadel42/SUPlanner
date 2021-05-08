@@ -26,24 +26,11 @@ namespace SUPlannerLibraries
             model.Id = currentId;
 
             model.Notes = "";
-            model.Typ = "Zahájeni";
+            
             spisy.Add(model);
             spisy.SaveToSpisFile();
 
-            //if (tournaments.Count > 0)
-            //{
-            //    currentId = tournaments.OrderByDescending(x => x.Id).First().Id + 1;
-            //}
-
-            //model.Id = currentId;
-
-            //model.SaveRoundsToFile();
-
-            //tournaments.Add(model);
-
-            //tournaments.SaveToTournamentFile();
-
-            //TournamentLogic.UpdateTournamentResults(model);
+            
         }
 
         public List<PodkladModel> GetPodklad_All()

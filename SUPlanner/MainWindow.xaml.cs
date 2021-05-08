@@ -1,9 +1,11 @@
 ﻿using SUPlannerLibraries;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,8 +31,13 @@ namespace SUPlanner
                 Directory.CreateDirectory(GlobalConfig.filePath);
             }
             GlobalConfig.InitializeConnections();
-            
-            
+
+            // Sets normal format for DatePicker
+            // TODO - find a way to make this a global setting
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd.MM.yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
             InitializeComponent();
             WireUpDataGrid();
            
@@ -66,6 +73,18 @@ namespace SUPlanner
 
         private void removeButton_Click(object sender, RoutedEventArgs e)
         {
+            List<SpisModel> spisy = GlobalConfig.spisFile.FullFilePath().LoadFile().ConvertToSpisModels();
+            SpisModel spisModel = (SpisModel)spisyDataGrid.SelectedItem;
+            if (!(spisModel==null))
+            {
+                spisy.RemoveSpisFromFile(spisModel.Id);
+                WireUpDataGrid();
+            }
+            else
+            {
+                MessageBox.Show("Nebyl vybrán žádný prvek.");
+            }
+            
             
         }
 

@@ -29,9 +29,27 @@ namespace SUPlannerLibraries
             List<string> lines = new();
             foreach (SpisModel p in models)
             {
-                lines.Add($"{ p.Id }&^&{ p.Cislo }&^&{ p.Zadatel }&^&{ p.Vec }&^&{ p.DatumPridani }&^&{ p.LimitniDatum }&^&{ p.Typ }&^&{ p.Notes }");
+                lines.Add($"{ p.Id }&^&{ p.SpisZn }&^&{ p.Cislo }&^&{ p.Zadatel }&^&{ p.Vec }&^&{ p.DatumPridani }&^&{ p.LimitniDatum }&^&{ p.Typ }&^&{ p.Notes }");
             }
 
+
+            File.WriteAllLines(GlobalConfig.spisFile.FullFilePath(), lines);
+        }
+
+        public static void RemoveSpisFromFile(this List<SpisModel> models, int iD)
+        {
+            List<string> lines = new();
+            foreach(SpisModel p in models)
+            {
+                if (p.Id == iD)
+                {
+                    continue;
+                }
+                else
+                {
+                    lines.Add($"{ p.Id }&^&{ p.SpisZn }&^&{ p.Cislo }&^&{ p.Zadatel }&^&{ p.Vec }&^&{ p.DatumPridani }&^&{ p.LimitniDatum }&^&{ p.Typ }&^&{ p.Notes }");
+                }
+            }
 
             File.WriteAllLines(GlobalConfig.spisFile.FullFilePath(), lines);
         }
@@ -64,13 +82,14 @@ namespace SUPlannerLibraries
 
                 SpisModel p = new();
                 p.Id = int.Parse(cols[0]);
-                p.Cislo = int.Parse(cols[1]);
-                p.Zadatel = cols[2];
-                p.Vec = cols[3];
-                p.DatumPridani = Convert.ToDateTime(cols[4]);
-                p.LimitniDatum = Convert.ToDateTime(cols[5]);
-                p.Typ = cols[6];
-                p.Notes = cols[7];
+                p.SpisZn = cols[1];
+                p.Cislo = int.Parse(cols[2]);
+                p.Zadatel = cols[3];
+                p.Vec = cols[4];
+                p.DatumPridani = Convert.ToDateTime(cols[5]);
+                p.LimitniDatum = Convert.ToDateTime(cols[6]);
+                p.Typ = cols[7];
+                p.Notes = cols[8];
 
                 output.Add(p);
             }

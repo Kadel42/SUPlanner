@@ -9,6 +9,7 @@ namespace SUPlannerLibraries
     public class SpisModel
     {
         public int Id { get; set; }
+        public string SpisZn { get; set; }
         public int Cislo { get; set; }
         public string Zadatel { get; set; }
         public string Vec { get; set; }
