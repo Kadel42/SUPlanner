@@ -76,12 +76,12 @@
             Poznámky
         </Button>
         <TextBlock Text="Zobrazit:"  Grid.Column="3" Grid.Row="11" FlowDirection="LeftToRight" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <ComboBox x:Name="showComboBox" Grid.Column="3" Grid.Row="12" Margin="0,2,0,0" MaxWidth="100">
-            <ComboBoxItem Content="Vše" IsSelected="True"/>
-            <ComboBoxItem Content="Žádosti"/>
-            <ComboBoxItem Content="Zahájení"/>
-            <ComboBoxItem Content="Výzvy"/>
-            <ComboBoxItem Content="Rozhodnutí"/>
+        <ComboBox x:Name="showComboBox" Grid.Column="3" Grid.Row="12" Margin="0,2,0,0" MaxWidth="100" SelectedIndex="0" IsReadOnly="True">
+            <ComboBoxItem x:Name="vseComboBoxItem" Content="Vše" Selected="vseComboBoxItem_Selected"/>
+            <ComboBoxItem x:Name="zadostiComboBoxItem" Content="Žádosti" Selected="zadostiComboBoxItem_Selected"/>
+            <ComboBoxItem x:Name="zahajeniComboBoxItem" Content="Zahájení" Selected="zahajeniComboBoxItem_Selected"/>
+            <ComboBoxItem x:Name="vyzvyComboBoxItem" Content="Výzvy" Selected="vyzvyComboBoxItem_Selected"/>
+            <ComboBoxItem x:Name="rozhodnutiComboBoxItem" Content="Rozhodnutí" Selected="rozhodnutiComboBoxItem_Selected"/>
         </ComboBox>
     </Grid>
 </Window>

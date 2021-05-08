@@ -50,6 +50,26 @@ namespace SUPlanner
             spisyDataGrid.ItemsSource = model; 
         }
 
+        private void WireUpDataGrid(string typ)
+        {
+            List<SpisModel> models = GlobalConfig.spisFile.FullFilePath().LoadFile().ConvertToSpisModels();
+            List<SpisModel> modelsToRemove = new();
+            foreach (SpisModel model in models)
+            {
+                if (model.Typ != typ)
+                {
+                    modelsToRemove.Add(model);
+                }
+            }
+
+            foreach (SpisModel removeModel in modelsToRemove)
+            {
+                models.Remove(removeModel);
+            }
+            
+            spisyDataGrid.ItemsSource = models;
+        }
+
         private void notesButton_Click(object sender, RoutedEventArgs e)
         {
             Notes notes = new();
@@ -91,6 +111,31 @@ namespace SUPlanner
         public void SpisComplete()
         {
             WireUpDataGrid();
+        }
+
+        private void vseComboBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            WireUpDataGrid();
+        }
+
+        private void zadostiComboBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            WireUpDataGrid("Žádosti");
+        }
+
+        private void zahajeniComboBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            WireUpDataGrid("Zahájení");
+        }
+
+        private void vyzvyComboBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            WireUpDataGrid("Výzvy");
+        }
+
+        private void rozhodnutiComboBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            WireUpDataGrid("Rozhodnutí");
         }
     }
 }
