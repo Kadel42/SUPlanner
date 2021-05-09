@@ -36,7 +36,7 @@
             <DataGrid x:Name="spisyDataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                   AlternatingRowBackground="LightGray" AutoGenerateColumns="False"
-                  Grid.ColumnSpan="1" SelectionMode="Single" CanUserAddRows="False">
+                   SelectionMode="Single" CanUserAddRows="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="#" x:Name="cisloColumn" MinWidth="40" Width="40"
                                         Binding="{Binding Path=Cislo}"/>

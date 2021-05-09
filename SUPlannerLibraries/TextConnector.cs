@@ -8,10 +8,7 @@ namespace SUPlannerLibraries
 {
     class TextConnector : IDataConnector
     {
-        public void CreatePodklad(PodkladModel podklad)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void CreateSpis(SpisModel model)
         {
@@ -31,6 +28,21 @@ namespace SUPlannerLibraries
             spisy.SaveToSpisFile();
 
             
+        }
+
+        public void CreatePodklad(PodkladModel model)
+        {
+            List<PodkladModel> podklady = GlobalConfig.podkladFile.FullFilePath().LoadFileAll().ConvertToPodkladModels();
+            int currentId = 1;
+
+            if (podklady.Count > 0)
+            {
+                currentId = podklady.OrderByDescending(x => x.Id).First().Id + 1;
+            }
+
+            model.Id = currentId;
+            podklady.Add(model);
+            podklady.SaveToPodkladFile();
         }
 
         public List<PodkladModel> GetPodklad_All()

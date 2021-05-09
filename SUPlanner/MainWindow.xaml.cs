@@ -22,7 +22,7 @@ namespace SUPlanner
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, ISpisRequest
+    public partial class MainWindow : Window, ISpisRequest, ISelectedSpisRequest
     {
         public MainWindow()
         {
@@ -86,9 +86,18 @@ namespace SUPlanner
 
         private void soupisButton_Click(object sender, RoutedEventArgs e)
         {
-            SoupisSpisu soupis = new();
+            if (spisyDataGrid.SelectedIndex == -1)
+            {
+                MessageBox.Show("Nebyl vybrán žádný spis.");
+            }
+
+            else
+            {
+                SoupisSpisu soupis = new(this);
+
+                soupis.Show();
+            }
             
-            soupis.Show();
         }
 
         private void removeButton_Click(object sender, RoutedEventArgs e)
@@ -136,6 +145,15 @@ namespace SUPlanner
         private void rozhodnutiComboBoxItem_Selected(object sender, RoutedEventArgs e)
         {
             WireUpDataGrid("Rozhodnutí");
+        }
+
+        public int SelectedSpis()
+        {
+            SpisModel model = (SpisModel)spisyDataGrid.SelectedItem;
+
+
+            return model.Id;
+            
         }
     }
 }

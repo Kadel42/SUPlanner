@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SUPlannerLibraries
 {
-    public class PodkladModel
+    public class PodkladModel     // TODO - add property Cislo so user can chose his own number (right now datagrid shows id)
     {
         public int Id { get; set; }
         public int SpisId { get; set; }

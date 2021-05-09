@@ -20,8 +20,20 @@ namespace SUPlannerLibraries
             {
                 return new List<string>();
             }
-
+            
             return File.ReadAllLines(file).ToList();
+        }
+
+        public static List<string> LoadFileAll(this string file)
+        {
+            if (!File.Exists(file))
+            {
+                return new List<string>();
+            }
+
+            List<string> allText = File.ReadAllText(file).Split("&|&").ToList();
+            return allText;
+
         }
 
         public static void SaveToSpisFile(this List<SpisModel> models)
@@ -34,6 +46,17 @@ namespace SUPlannerLibraries
 
 
             File.WriteAllLines(GlobalConfig.spisFile.FullFilePath(), lines);
+        }
+
+        public static void SaveToPodkladFile(this List<PodkladModel> models)
+        {
+            string podklad = "";
+            foreach (PodkladModel p in models)
+            {
+                podklad += ($"{ p.Id }&^&{ p.SpisId }&^&{ p.Podklad }&^&{ p.DatumPridani }&|&");
+            }
+            podklad.Remove(podklad.Length - 3);
+            File.WriteAllText(GlobalConfig.podkladFile.FullFilePath(), podklad);
         }
 
         public static void RemoveSpisFromFile(this List<SpisModel> models, int iD)
@@ -57,6 +80,7 @@ namespace SUPlannerLibraries
         public static List<PodkladModel> ConvertToPodkladModels(this List<string> lines)
         {
             List<PodkladModel> output = new();
+            lines.RemoveAt(lines.Count - 1);
             foreach (string line in lines)
             {
                 string[] cols = line.Split("&^&");
