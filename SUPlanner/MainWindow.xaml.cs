@@ -46,13 +46,13 @@ namespace SUPlanner
 
         private void WireUpDataGrid()
         {
-            List<SpisModel> model = GlobalConfig.spisFile.FullFilePath().LoadFile().ConvertToSpisModels();
+            List<SpisModel> model = GlobalConfig.spisFile.FullFilePath().LoadFileAll().ConvertToSpisModels();
             spisyDataGrid.ItemsSource = model; 
         }
 
         private void WireUpDataGrid(string typ)
         {
-            List<SpisModel> models = GlobalConfig.spisFile.FullFilePath().LoadFile().ConvertToSpisModels();
+            List<SpisModel> models = GlobalConfig.spisFile.FullFilePath().LoadFileAll().ConvertToSpisModels();
             List<SpisModel> modelsToRemove = new();
             foreach (SpisModel model in models)
             {
@@ -102,7 +102,7 @@ namespace SUPlanner
 
         private void removeButton_Click(object sender, RoutedEventArgs e)
         {
-            List<SpisModel> spisy = GlobalConfig.spisFile.FullFilePath().LoadFile().ConvertToSpisModels();
+            List<SpisModel> spisy = GlobalConfig.spisFile.FullFilePath().LoadFileAll().ConvertToSpisModels();
             SpisModel spisModel = (SpisModel)spisyDataGrid.SelectedItem;
             if (!(spisModel==null))
             {

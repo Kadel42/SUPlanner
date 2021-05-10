@@ -14,15 +14,15 @@ namespace SUPlannerLibraries
             return $"{ GlobalConfig.filePath }\\{ fileName }";
         }
 
-        public static List<string> LoadFile(this string file)
-        {
-            if (!File.Exists(file))
-            {
-                return new List<string>();
-            }
+        //public static List<string> LoadFile(this string file)
+        //{
+        //    if (!File.Exists(file))
+        //    {
+        //        return new List<string>();
+        //    }
             
-            return File.ReadAllLines(file).ToList();
-        }
+        //    return File.ReadAllLines(file).ToList();
+        //}
 
         public static List<string> LoadFileAll(this string file)
         {
@@ -38,14 +38,14 @@ namespace SUPlannerLibraries
 
         public static void SaveToSpisFile(this List<SpisModel> models)
         {
-            List<string> lines = new();
+            string spisLine = "";
             foreach (SpisModel p in models)
             {
-                lines.Add($"{ p.Id }&^&{ p.SpisZn }&^&{ p.Cislo }&^&{ p.Zadatel }&^&{ p.Vec }&^&{ p.DatumPridani }&^&{ p.LimitniDatum }&^&{ p.Typ }&^&{ p.Notes }");
+                spisLine += ($"{ p.Id }&^&{ p.SpisZn }&^&{ p.Cislo }&^&{ p.Zadatel }&^&{ p.Vec }&^&{ p.DatumPridani }&^&{ p.LimitniDatum }&^&{ p.Typ }&^&{ p.Notes }&|&");
             }
 
 
-            File.WriteAllLines(GlobalConfig.spisFile.FullFilePath(), lines);
+            File.WriteAllText(GlobalConfig.spisFile.FullFilePath(), spisLine);
         }
 
         public static void SaveToPodkladFile(this List<PodkladModel> models)
@@ -53,15 +53,15 @@ namespace SUPlannerLibraries
             string podklad = "";
             foreach (PodkladModel p in models)
             {
-                podklad += ($"{ p.Id }&^&{ p.SpisId }&^&{ p.Podklad }&^&{ p.DatumPridani }&|&");
+                podklad += ($"{ p.Id }&^&{ p.Cislo }&^&{ p.SpisId }&^&{ p.Podklad }&^&{ p.DatumPridani }&|&");
             }
-            podklad.Remove(podklad.Length - 3);
+            
             File.WriteAllText(GlobalConfig.podkladFile.FullFilePath(), podklad);
         }
 
         public static void RemoveSpisFromFile(this List<SpisModel> models, int iD)
         {
-            List<string> lines = new();
+            string spisLine = "";
             foreach(SpisModel p in models)
             {
                 if (p.Id == iD)
@@ -70,26 +70,50 @@ namespace SUPlannerLibraries
                 }
                 else
                 {
-                    lines.Add($"{ p.Id }&^&{ p.SpisZn }&^&{ p.Cislo }&^&{ p.Zadatel }&^&{ p.Vec }&^&{ p.DatumPridani }&^&{ p.LimitniDatum }&^&{ p.Typ }&^&{ p.Notes }");
+                    spisLine += ($"{ p.Id }&^&{ p.SpisZn }&^&{ p.Cislo }&^&{ p.Zadatel }&^&{ p.Vec }&^&{ p.DatumPridani }&^&{ p.LimitniDatum }&^&{ p.Typ }&^&{ p.Notes }&|&");
                 }
             }
 
-            File.WriteAllLines(GlobalConfig.spisFile.FullFilePath(), lines);
+            File.WriteAllText(GlobalConfig.spisFile.FullFilePath(), spisLine);
+        }
+
+        public static void RemovePodkladFromFile(this List<PodkladModel> models, int iD)
+        {
+            string podklad = "";
+            foreach (PodkladModel p in models)
+            {
+                if (p.Id == iD)
+                {
+                    continue;
+                }
+                else
+                {
+                    podklad += ($"{ p.Id }&^&{ p.Cislo }&^&{ p.SpisId }&^&{ p.Podklad }&^&{ p.DatumPridani }&|&");
+                }
+
+                File.WriteAllText(GlobalConfig.podkladFile.FullFilePath(), podklad);
+
+            }
         }
 
         public static List<PodkladModel> ConvertToPodkladModels(this List<string> lines)
         {
             List<PodkladModel> output = new();
-            lines.RemoveAt(lines.Count - 1);
+            if (lines.Count > 0)
+            {
+                lines.RemoveAt(lines.Count - 1);
+            }
+            
             foreach (string line in lines)
             {
                 string[] cols = line.Split("&^&");
 
                 PodkladModel p = new();
                 p.Id = int.Parse(cols[0]);
-                p.SpisId = int.Parse(cols[1]);
-                p.Podklad = cols[2];
-                p.DatumPridani = DateTime.Parse(cols[3]);
+                p.Cislo = int.Parse(cols[1]);
+                p.SpisId = int.Parse(cols[2]);
+                p.Podklad = cols[3];
+                p.DatumPridani = DateTime.Parse(cols[4]);
 
                 output.Add(p);
 
@@ -100,6 +124,10 @@ namespace SUPlannerLibraries
         public static List<SpisModel> ConvertToSpisModels(this List<string> lines)
         {
             List<SpisModel> output = new();
+            if (lines.Count > 0)
+            {
+                lines.RemoveAt(lines.Count - 1);
+            }
             foreach (string line in lines)
             {
                 string[] cols = line.Split("&^&");

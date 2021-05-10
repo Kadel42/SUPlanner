@@ -12,7 +12,7 @@ namespace SUPlannerLibraries
 
         public void CreateSpis(SpisModel model)
         {
-            List<SpisModel> spisy = GlobalConfig.spisFile.FullFilePath().LoadFile().ConvertToSpisModels();
+            List<SpisModel> spisy = GlobalConfig.spisFile.FullFilePath().LoadFileAll().ConvertToSpisModels();
             int currentId = 1;
 
             if (spisy.Count > 0)
@@ -47,12 +47,12 @@ namespace SUPlannerLibraries
 
         public List<PodkladModel> GetPodklad_All()
         {
-            return GlobalConfig.podkladFile.FullFilePath().LoadFile().ConvertToPodkladModels();
+            return GlobalConfig.podkladFile.FullFilePath().LoadFileAll().ConvertToPodkladModels();
         }
 
         public List<SpisModel> GetSpis_All()
         {
-            return GlobalConfig.spisFile.FullFilePath().LoadFile().ConvertToSpisModels();
+            return GlobalConfig.spisFile.FullFilePath().LoadFileAll().ConvertToSpisModels();
         }
     }
 }

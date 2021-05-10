@@ -41,7 +41,7 @@ namespace SUPlanner
         private List<int> SetRollerNumbers() // Makes a list of unused numbers
         {
             
-            List<SpisModel> spisy = GlobalConfig.spisFile.FullFilePath().LoadFile().ConvertToSpisModels();
+            List<SpisModel> spisy = GlobalConfig.spisFile.FullFilePath().LoadFileAll().ConvertToSpisModels();
             List<int> cisla = new();
             List<int> unusedNumbers = new();
             int cislo = 1;
@@ -50,7 +50,7 @@ namespace SUPlanner
             {
                 cisla.Add(spis.Cislo);
             }
-            int limit = 4;
+            int limit = 100;
             int i = 0;
             while (i < limit)
             {

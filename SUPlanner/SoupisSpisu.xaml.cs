@@ -20,15 +20,64 @@ namespace SUPlanner
     /// <summary>
     /// Interaction logic for SoupisSpisu.xaml
     /// </summary>
-    public partial class SoupisSpisu : Window           // TODO - Wire up Odebrat Button
+    public partial class SoupisSpisu : Window         // TODO - Add roller to the window so User can chose his number (right now returns the smallest unused) 
     {
         ISelectedSpisRequest selectedSpisRequest;
+        private int indexOfUnusedNumber = 0;
         public SoupisSpisu(ISelectedSpisRequest caller)
         {
             InitializeComponent();
             selectedSpisRequest = caller;
             SetDefaultDate();
+            SetDefaultCislo();
             WireUpSoupisSpisu();
+        }
+
+        private void SetDefaultCislo()
+        {
+            cisloPodkladTextBox.Text = SetRollerCisla()[0].ToString();
+        }
+
+        private List<int> SetRollerCisla()
+        {
+            List<PodkladModel> podklady = GlobalConfig.podkladFile.FullFilePath().LoadFileAll().ConvertToPodkladModels();
+            List<int> cisla = new();
+            List<int> unusedNumbers = new();
+            int cislo = 1;
+            List<PodkladModel> soupisSpisu = new();
+            int spisId = selectedSpisRequest.SelectedSpis();
+            foreach (PodkladModel podklad in podklady)
+            {
+
+                if (podklad.SpisId == spisId)
+                {
+                    soupisSpisu.Add(podklad);
+                }
+            }
+            foreach (PodkladModel podklad in soupisSpisu)
+            {
+                cisla.Add(podklad.Cislo);
+            }
+            int limit = 100;
+            int i = 0;
+            while (i < limit)
+            {
+                if (cisla.Contains(cislo))
+                {
+                    cislo++;
+                    limit++;
+                    i++;
+                }
+                else
+                {
+                    unusedNumbers.Add(cislo);
+                    cislo++;
+                    i++;
+                }
+
+                
+            }
+            return unusedNumbers;
         }
 
         private void SetDefaultDate()
@@ -57,7 +106,20 @@ namespace SUPlanner
 
         private void odebratSoupisSpisuButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            List<PodkladModel> podklady = GlobalConfig.podkladFile.FullFilePath().LoadFileAll().ConvertToPodkladModels();
+            PodkladModel podkladModel = (PodkladModel)podkladyDataGrid.SelectedItem;
+
+            if (!(podkladModel == null))
+            {
+                podklady.RemovePodkladFromFile(podkladModel.Id);
+                WireUpSoupisSpisu();
+            }
+            else
+            {
+                MessageBox.Show("Nebyl vybrán žádný prvek.");
+            }
+
+            
         }
 
         private void pridatSoupisSpisuButton_Click(object sender, RoutedEventArgs e)
@@ -65,11 +127,14 @@ namespace SUPlanner
             if (Validate())
             {
                 PodkladModel podklad = new();
+                podklad.Cislo = SetRollerCisla()[0];
                 podklad.SpisId = selectedSpisRequest.SelectedSpis();
-                podklad.Podklad = podkladTextBox.Text;
+                podklad.Podklad = podkladTextBox.Text.Trim();
                 podklad.DatumPridani = (DateTime)podkladDatePicker.SelectedDate;
                 GlobalConfig.Connection.CreatePodklad(podklad);
                 WireUpSoupisSpisu();
+                SetDefaultCislo();
+                podkladTextBox.Text = "";
             }
             
             
@@ -93,6 +158,25 @@ namespace SUPlanner
 
             return isValid;
 
+        }
+
+        private void upPodkladCisloButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<int> indexes = SetRollerCisla();
+            if (indexOfUnusedNumber < indexes.Count - 1)
+            {
+                indexOfUnusedNumber++;
+                cisloPodkladTextBox.Text = indexes[indexOfUnusedNumber].ToString();
+            }
+        }
+
+        private void downPodkladCisloButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (indexOfUnusedNumber > 0)
+            {
+                indexOfUnusedNumber--;
+                cisloPodkladTextBox.Text = SetRollerCisla()[indexOfUnusedNumber].ToString();
+            }
         }
     }
 }
