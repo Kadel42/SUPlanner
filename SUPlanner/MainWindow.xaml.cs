@@ -72,13 +72,22 @@ namespace SUPlanner
 
         private void notesButton_Click(object sender, RoutedEventArgs e)
         {
-            Notes notes = new();
+            if (spisyDataGrid.SelectedIndex == -1)
+            {
+                MessageBox.Show("Nebyl vybrán žádný spis.");
+            }
+            else
+            {
+                Notes notes = new(this);
+
+                notes.Show();
+            }
             
-            notes.Show();
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
+            spisyDataGrid.SelectedIndex = -1;
             Spis spis = new(this);
             
             spis.Show();
@@ -147,13 +156,24 @@ namespace SUPlanner
             WireUpDataGrid("Rozhodnutí");
         }
 
-        public int SelectedSpis()
+        public SpisModel SelectedSpis()
         {
             SpisModel model = (SpisModel)spisyDataGrid.SelectedItem;
 
 
-            return model.Id;
+            return model;
             
+        }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (spisyDataGrid.SelectedIndex == -1)
+            {
+                MessageBox.Show("Nebyl vybrán žádný spis.");
+            }
+            Spis spis = new(this);
+
+            spis.Show();
         }
     }
 }

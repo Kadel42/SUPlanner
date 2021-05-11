@@ -9,6 +9,6 @@ namespace SUPlanner
 {
     public interface ISelectedSpisRequest
     {
-        int SelectedSpis();
+        SpisModel SelectedSpis();
     }
 }

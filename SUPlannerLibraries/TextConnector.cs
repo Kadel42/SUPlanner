@@ -19,10 +19,18 @@ namespace SUPlannerLibraries
             {
                 currentId = spisy.OrderByDescending(x => x.Id).First().Id + 1;
             }
-
-            model.Id = currentId;
-
-            model.Notes = "";
+            if (model.Id == 0)
+            {
+                model.Id = currentId;
+            }
+                
+            
+            
+            if (model.Notes == null)
+            {
+                model.Notes = "";
+            }
+            
             
             spisy.Add(model);
             spisy.SaveToSpisFile();

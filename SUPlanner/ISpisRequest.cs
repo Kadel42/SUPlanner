@@ -10,5 +10,6 @@ namespace SUPlanner
     public interface ISpisRequest
     {
         void SpisComplete();
+        SpisModel SelectedSpis();
     }
 }

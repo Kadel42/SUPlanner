@@ -24,6 +24,6 @@
         <TextBox x:Name="notesTextBox" Grid.Column="1" Grid.Row="2" Margin="0,5,5,0" TextWrapping="Wrap"
                  AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
         <Button x:Name="ulozNoteButton" Grid.Column="2" Grid.Row="2" Width="100" Height="40" Background="#FF719DEC"
-                BorderBrush="#FF38A4BB" VerticalAlignment="Top" Margin="0,5,0,0">Ulož</Button>
+                BorderBrush="#FF38A4BB" VerticalAlignment="Top" Margin="0,5,0,0" Click="ulozNoteButton_Click">Ulož</Button>
     </Grid>
 </Window>

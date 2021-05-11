@@ -20,7 +20,7 @@ namespace SUPlanner
     /// <summary>
     /// Interaction logic for SoupisSpisu.xaml
     /// </summary>
-    public partial class SoupisSpisu : Window         // TODO - Add roller to the window so User can chose his number (right now returns the smallest unused) 
+    public partial class SoupisSpisu : Window        
     {
         ISelectedSpisRequest selectedSpisRequest;
         private int indexOfUnusedNumber = 0;
@@ -45,7 +45,7 @@ namespace SUPlanner
             List<int> unusedNumbers = new();
             int cislo = 1;
             List<PodkladModel> soupisSpisu = new();
-            int spisId = selectedSpisRequest.SelectedSpis();
+            int spisId = selectedSpisRequest.SelectedSpis().Id;
             foreach (PodkladModel podklad in podklady)
             {
 
@@ -92,7 +92,7 @@ namespace SUPlanner
         {
             List<PodkladModel> podklady = GlobalConfig.podkladFile.FullFilePath().LoadFileAll ().ConvertToPodkladModels();
             List<PodkladModel> soupisSpisu = new();
-            int spisId = selectedSpisRequest.SelectedSpis();
+            int spisId = selectedSpisRequest.SelectedSpis().Id;
             foreach (PodkladModel podklad in podklady)
             {
                 
@@ -128,7 +128,7 @@ namespace SUPlanner
             {
                 PodkladModel podklad = new();
                 podklad.Cislo = SetRollerCisla()[0];
-                podklad.SpisId = selectedSpisRequest.SelectedSpis();
+                podklad.SpisId = selectedSpisRequest.SelectedSpis().Id;
                 podklad.Podklad = podkladTextBox.Text.Trim();
                 podklad.DatumPridani = (DateTime)podkladDatePicker.SelectedDate;
                 GlobalConfig.Connection.CreatePodklad(podklad);

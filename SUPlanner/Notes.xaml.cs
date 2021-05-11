@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SUPlannerLibraries;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,28 @@ namespace SUPlanner
     /// </summary>
     public partial class Notes : Window
     {
-        public Notes()
+        ISelectedSpisRequest selectedSpisRequest;
+        public Notes(ISelectedSpisRequest caller)
         {
             InitializeComponent();
+            selectedSpisRequest = caller;
+            WireUpNotes();
+        }
+
+        private void WireUpNotes()
+        {
+            string notesText = selectedSpisRequest.SelectedSpis().Notes;
+            notesTextBox.Text = notesText;
+        }
+
+        private void ulozNoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            SpisModel model = selectedSpisRequest.SelectedSpis();
+            model.Notes = notesTextBox.Text;
+            List<SpisModel> spisy = GlobalConfig.spisFile.FullFilePath().LoadFileAll().ConvertToSpisModels();
+            spisy.RemoveSpisFromFile(model.Id);
+            GlobalConfig.Connection.CreateSpis(model);
+            this.Close();
         }
     }
 }

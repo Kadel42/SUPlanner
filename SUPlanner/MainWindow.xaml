@@ -60,7 +60,7 @@
             Přidat
         </Button>
         <Button x:Name="editButton" Grid.Column="3" Grid.Row="3" FontSize="16" Height="40"
-                Width="100" HorizontalAlignment="Right" Background="#FF719DEC" BorderBrush="#FF38A4BB">
+                Width="100" HorizontalAlignment="Right" Background="#FF719DEC" BorderBrush="#FF38A4BB" Click="editButton_Click">
             Upravit
         </Button>
         <Button x:Name="removeButton" Grid.Column="3" Grid.Row="5" FontSize="16" Height="40"

@@ -22,15 +22,49 @@ namespace SUPlanner
     /// </summary>
     public partial class Spis : Window
     {
+        
         private int indexOfUnusedNumber = 0;
         ISpisRequest spisRequest;
+        
         public Spis(ISpisRequest caller)
         {
             
             InitializeComponent();
-            SetDefaultDate();
-            SetDefaultCislo();
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd.MM.yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
             spisRequest = caller;
+            if (spisRequest.SelectedSpis() != null)
+            {
+                WireUpSpis();
+            }
+            else
+            {
+                SetDefaultDate();
+                SetDefaultCislo();
+            }
+            
+        }
+
+        private void WireUpSpis()
+        {
+            SpisModel spis = spisRequest.SelectedSpis();
+            cisloTextBox.Text = spis.Cislo.ToString();
+            spisZnTextBox.Text = spis.SpisZn;
+            zadatelTextBox.Text = spis.Zadatel;
+            vecTextBox.Text = spis.Vec;
+            podaniDatePicker.SelectedDate = spis.DatumPridani;
+            limitDatePicker.SelectedDate = spis.LimitniDatum;
+            typComboBox.SelectedValue = spis.Typ;
+
+            //spis.Cislo = int.Parse(cisloTextBox.Text);
+            //spis.SpisZn = spisZnTextBox.Text;
+            //spis.Zadatel = zadatelTextBox.Text;
+            //spis.Vec = vecTextBox.Text;
+            //spis.DatumPridani = (DateTime)podaniDatePicker.SelectedDate;
+            //spis.LimitniDatum = (DateTime)limitDatePicker.SelectedDate;
+            //spis.Typ = typComboBox.SelectedValue.ToString();
+
         }
 
         private void SetDefaultCislo()
@@ -44,6 +78,11 @@ namespace SUPlanner
             List<SpisModel> spisy = GlobalConfig.spisFile.FullFilePath().LoadFileAll().ConvertToSpisModels();
             List<int> cisla = new();
             List<int> unusedNumbers = new();
+            if (spisRequest.SelectedSpis() != null)
+            {
+                unusedNumbers.Add(spisRequest.SelectedSpis().Cislo);
+            }
+            
             int cislo = 1;
 
             foreach (SpisModel spis in spisy)
@@ -67,15 +106,13 @@ namespace SUPlanner
                     i++;
                 }
             }
-
+            
             return unusedNumbers;
         }
 
         private void SetDefaultDate()
         {
-            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
-            ci.DateTimeFormat.ShortDatePattern = "dd.MM.yyyy";
-            Thread.CurrentThread.CurrentCulture = ci;
+            
             podaniDatePicker.SelectedDate = DateTime.Today;
             limitDatePicker.SelectedDate = DateTime.Today.AddDays(30);
         }
@@ -85,8 +122,14 @@ namespace SUPlanner
             if (Validate())
             {
 
-
+                SpisModel selectedSpis = spisRequest.SelectedSpis();
                 SpisModel spis = new();
+                if (selectedSpis != null)
+                {
+                    List<SpisModel> spisy = GlobalConfig.spisFile.FullFilePath().LoadFileAll().ConvertToSpisModels();
+                    spis.Id = selectedSpis.Id;
+                    spisy.RemoveSpisFromFile(selectedSpis.Id);
+                }
                 spis.Cislo = int.Parse(cisloTextBox.Text);
                 spis.SpisZn = spisZnTextBox.Text;
                 spis.Zadatel = zadatelTextBox.Text;
