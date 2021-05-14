@@ -47,7 +47,8 @@ namespace SUPlanner
         private void WireUpDataGrid()
         {
             List<SpisModel> model = GlobalConfig.spisFile.FullFilePath().LoadFileAll().ConvertToSpisModels();
-            spisyDataGrid.ItemsSource = model; 
+            spisyDataGrid.ItemsSource = model;
+            
         }
 
         private void WireUpDataGrid(string typ)
@@ -109,7 +110,7 @@ namespace SUPlanner
             
         }
 
-        private void removeButton_Click(object sender, RoutedEventArgs e)
+        private void removeButton_Click(object sender, RoutedEventArgs e)   // TODO - Delete all PodkladModels connected to selected spis
         {
             List<SpisModel> spisy = GlobalConfig.spisFile.FullFilePath().LoadFileAll().ConvertToSpisModels();
             SpisModel spisModel = (SpisModel)spisyDataGrid.SelectedItem;

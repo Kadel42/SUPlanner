@@ -17,8 +17,14 @@ namespace SUPlannerLibraries
         public DateTime LimitniDatum { get; set; }
         public string Typ { get; set; }
         public string Notes { get; set; }
-
         
+
+        public int IsLate { get; set; }
+        
+         
+
+
+
 
     }
 

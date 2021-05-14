@@ -23,7 +23,18 @@ namespace SUPlannerLibraries
             {
                 model.Id = currentId;
             }
-                
+            if (DateTime.Compare(model.LimitniDatum, DateTime.Today) <= 0)
+            {
+                model.IsLate = -1;
+            }
+            else if (DateTime.Compare(model.LimitniDatum, DateTime.Today.AddDays(5)) <= 0)
+            {
+                model.IsLate = 0;
+            }
+            else
+            {
+                model.IsLate = 1;
+            }
             
             
             if (model.Notes == null)

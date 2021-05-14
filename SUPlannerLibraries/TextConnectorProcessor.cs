@@ -142,6 +142,19 @@ namespace SUPlannerLibraries
                 p.LimitniDatum = Convert.ToDateTime(cols[6]);
                 p.Typ = cols[7];
                 p.Notes = cols[8];
+                if (DateTime.Compare(p.LimitniDatum, DateTime.Today) <= 0)
+                {
+                    p.IsLate = -1;
+                }
+                else if (DateTime.Compare(p.LimitniDatum, DateTime.Today.AddDays(5)) <= 0)
+                {
+                    p.IsLate = 0;
+                }
+                else
+                {
+                    p.IsLate = 1;
+                }
+                
 
                 output.Add(p);
             }

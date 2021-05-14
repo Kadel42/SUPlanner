@@ -35,11 +35,28 @@
         <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="13">
             <DataGrid x:Name="spisyDataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
-                  AlternatingRowBackground="LightGray" AutoGenerateColumns="False"
+                   AutoGenerateColumns="False" 
                    SelectionMode="Single" CanUserAddRows="False" IsReadOnly="True">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLate}" Value="0">
+                                <Setter Property="Background" Value="Orange"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsLate}" Value="1">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsLate}" Value="-1">
+                                <Setter Property="Background" Value="Red"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="#" x:Name="cisloColumn" MinWidth="40" Width="40"
                                         Binding="{Binding Path=Cislo}"/>
+                    <DataGridTextColumn Header="#" x:Name="isLateColumn" MinWidth="40" Width="40"
+                                        Binding="{Binding Path=IsLate}"/>
                     <DataGridTextColumn Header="Spis. Zn." x:Name="spisZnColumn" MinWidth="60" Width="auto"
                                         Binding="{Binding Path=SpisZn}"/>
                     <DataGridTextColumn Header="Žadatel" x:Name="zadatelColumn"
