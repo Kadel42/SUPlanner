@@ -37,6 +37,12 @@
                   HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                    AutoGenerateColumns="False" 
                    SelectionMode="Single" CanUserAddRows="False" IsReadOnly="True">
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                                     Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                                     Color="{x:Static SystemColors.HighlightTextColor}"/>
+                </DataGrid.Resources>
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
@@ -55,8 +61,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="#" x:Name="cisloColumn" MinWidth="40" Width="40"
                                         Binding="{Binding Path=Cislo}"/>
-                    <DataGridTextColumn Header="#" x:Name="isLateColumn" MinWidth="40" Width="40"
-                                        Binding="{Binding Path=IsLate}"/>
+                    
                     <DataGridTextColumn Header="Spis. Zn." x:Name="spisZnColumn" MinWidth="60" Width="auto"
                                         Binding="{Binding Path=SpisZn}"/>
                     <DataGridTextColumn Header="Žadatel" x:Name="zadatelColumn"

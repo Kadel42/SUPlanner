@@ -77,6 +77,26 @@ namespace SUPlannerLibraries
             File.WriteAllText(GlobalConfig.spisFile.FullFilePath(), spisLine);
         }
 
+        public static void RemovePodkladBySpisId (this List<PodkladModel> models, int spisId)
+        {
+            string podklad = "";
+            foreach (PodkladModel p in models)
+            {
+                if (p.SpisId == spisId)
+                {
+                    continue;
+                }
+                else
+                {
+                    podklad += ($"{ p.Id }&^&{ p.Cislo }&^&{ p.SpisId }&^&{ p.Podklad }&^&{ p.DatumPridani }&|&");
+                }
+
+                
+
+            }
+            File.WriteAllText(GlobalConfig.podkladFile.FullFilePath(), podklad);
+        }
+
         public static void RemovePodkladFromFile(this List<PodkladModel> models, int iD)
         {
             string podklad = "";
@@ -91,9 +111,10 @@ namespace SUPlannerLibraries
                     podklad += ($"{ p.Id }&^&{ p.Cislo }&^&{ p.SpisId }&^&{ p.Podklad }&^&{ p.DatumPridani }&|&");
                 }
 
-                File.WriteAllText(GlobalConfig.podkladFile.FullFilePath(), podklad);
+                
 
             }
+            File.WriteAllText(GlobalConfig.podkladFile.FullFilePath(), podklad);
         }
 
         public static List<PodkladModel> ConvertToPodkladModels(this List<string> lines)

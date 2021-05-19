@@ -110,13 +110,15 @@ namespace SUPlanner
             
         }
 
-        private void removeButton_Click(object sender, RoutedEventArgs e)   // TODO - Delete all PodkladModels connected to selected spis
+        private void removeButton_Click(object sender, RoutedEventArgs e)   
         {
             List<SpisModel> spisy = GlobalConfig.spisFile.FullFilePath().LoadFileAll().ConvertToSpisModels();
+            List<PodkladModel> podklady = GlobalConfig.podkladFile.FullFilePath().LoadFileAll().ConvertToPodkladModels();
             SpisModel spisModel = (SpisModel)spisyDataGrid.SelectedItem;
             if (!(spisModel==null))
             {
                 spisy.RemoveSpisFromFile(spisModel.Id);
+                podklady.RemovePodkladBySpisId(spisModel.Id);
                 WireUpDataGrid();
             }
             else
