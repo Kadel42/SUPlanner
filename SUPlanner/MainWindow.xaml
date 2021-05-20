@@ -28,15 +28,18 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="5" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
-        <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="13">
+        <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="17">
             <DataGrid x:Name="spisyDataGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                   HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
-                   AutoGenerateColumns="False" 
-                   SelectionMode="Single" CanUserAddRows="False" IsReadOnly="True">
+                   AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" IsReadOnly="True">
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
                                      Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
@@ -97,8 +100,16 @@
                 Width="100" HorizontalAlignment="Right" Background="#FF719DEC" BorderBrush="#FF38A4BB" Click="notesButton_Click">
             Poznámky
         </Button>
-        <TextBlock Text="Zobrazit:"  Grid.Column="3" Grid.Row="11" FlowDirection="LeftToRight" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <ComboBox x:Name="showComboBox" Grid.Column="3" Grid.Row="12" Margin="0,2,0,0" MaxWidth="100" SelectedIndex="0" IsReadOnly="True">
+        <Button x:Name="ukonyButton" Grid.Column="3" Grid.Row="11" FontSize="16" Height="40"
+                Width="100" HorizontalAlignment="Right" Background="#FF719DEC" BorderBrush="#FF38A4BB" Click="ukonyButton_Click">
+            Úkony
+        </Button>
+        <Button x:Name="statistikaButton" Grid.Column="3" Grid.Row="13" FontSize="16" Height="40"
+                Width="100" HorizontalAlignment="Right" Background="#FF719DEC" BorderBrush="#FF38A4BB" Click="statistikaButton_Click">
+            Statistika
+        </Button>
+        <TextBlock Text="Zobrazit:"  Grid.Column="3" Grid.Row="15" FlowDirection="LeftToRight" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ComboBox x:Name="showComboBox" Grid.Column="3" Grid.Row="16" Margin="0,2,0,0" MaxWidth="100" SelectedIndex="0" IsReadOnly="True">
             <ComboBoxItem x:Name="vseComboBoxItem" Content="Vše" Selected="vseComboBoxItem_Selected"/>
             <ComboBoxItem x:Name="zadostiComboBoxItem" Content="Žádosti" Selected="zadostiComboBoxItem_Selected"/>
             <ComboBoxItem x:Name="zahajeniComboBoxItem" Content="Zahájení" Selected="zahajeniComboBoxItem_Selected"/>

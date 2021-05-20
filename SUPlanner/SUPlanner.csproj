@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SUPlannerLibraries\SUPlannerLibraries.csproj" />
   </ItemGroup>
 

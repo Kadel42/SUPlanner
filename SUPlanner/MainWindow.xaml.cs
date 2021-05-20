@@ -174,9 +174,34 @@ namespace SUPlanner
             {
                 MessageBox.Show("Nebyl vybrán žádný spis.");
             }
-            Spis spis = new(this);
+            else
+            {
+                Spis spis = new(this);
 
-            spis.Show();
+                spis.Show();
+            }
+            
+        }
+
+        private void statistikaButton_Click(object sender, RoutedEventArgs e)
+        {
+            Statistika statistika = new();
+            statistika.Show();
+        }
+
+        private void ukonyButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (spisyDataGrid.SelectedIndex == -1)
+            {
+                MessageBox.Show("Nebyl vybrán žádný spis.");
+            }
+            else
+            {
+                Ukony ukony = new(this);
+
+                ukony.Show();
+            }
+            
         }
     }
 }

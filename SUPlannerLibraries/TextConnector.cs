@@ -73,5 +73,10 @@ namespace SUPlannerLibraries
         {
             return GlobalConfig.spisFile.FullFilePath().LoadFileAll().ConvertToSpisModels();
         }
+
+        public void CreateUkon(UkonModel ukon)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

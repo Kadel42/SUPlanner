@@ -10,6 +10,7 @@ namespace SUPlannerLibraries
     {
         void CreateSpis(SpisModel spis);
         void CreatePodklad(PodkladModel podklad);
+        void CreateUkon(UkonModel ukon);
 
         List<SpisModel> GetSpis_All();
         List<PodkladModel> GetPodklad_All();
