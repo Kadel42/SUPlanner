@@ -10,7 +10,10 @@ namespace SUPlannerLibraries
     {
         public const string podkladFile = "Podklady.csv";
         public const string spisFile = "Spisy.csv";
+        public const string statistikaFile = "Statistika.csv";
+        public const string ukonFile = "Ukony.csv";
         public const string filePath = ".\\saveFiles";
+        
 
         public static IDataConnector Connection { get; private set; }
 

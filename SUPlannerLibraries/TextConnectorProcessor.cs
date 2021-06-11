@@ -59,6 +59,28 @@ namespace SUPlannerLibraries
             File.WriteAllText(GlobalConfig.podkladFile.FullFilePath(), podklad);
         }
 
+        public static void SaveToStatFile(this List<StatistikaModel> models)
+        {
+            string statLine = "";
+            foreach (StatistikaModel p in models)
+            {
+                statLine += ($"{ p.Id }&^&{ p.UkonId }&^&{ p.SpisZn }&^&{ p.CisloJednaci }&^&{ p.Typ }&^&{ p.Zadatel }&^&{ p.Vec }&^&{ p.DatumVydani }&|&");
+            }
+
+            File.WriteAllText(GlobalConfig.statistikaFile.FullFilePath(), statLine);
+        }
+
+        public static void SaveToUkonFile(this List<UkonModel> models)
+        {
+            string ukony = "";
+            foreach (UkonModel p in models)
+            {
+                ukony += ($"{ p.Id }&^&{ p.SpisId }&^&{ p.CisloJednaci }&^&{ p.Typ }&^&{ p.Vydani }&|&");
+            }
+
+            File.WriteAllText(GlobalConfig.ukonFile.FullFilePath(), ukony);
+        }
+
         public static void RemoveSpisFromFile(this List<SpisModel> models, int iD)
         {
             string spisLine = "";
@@ -176,6 +198,59 @@ namespace SUPlannerLibraries
                     p.IsLate = 1;
                 }
                 
+
+                output.Add(p);
+            }
+
+            return output;
+        }
+
+        public static List<StatistikaModel> ConvertToStatModels(this List<string> lines)
+        {
+            List<StatistikaModel> output = new();
+            if (lines.Count > 0)
+            {
+                lines.RemoveAt(lines.Count - 1);
+            }
+            foreach (string line in lines)
+            {
+                string[] cols = line.Split("&^&");
+
+                StatistikaModel p = new();
+                p.Id = int.Parse(cols[0]);
+                p.UkonId = int.Parse(cols[1]);
+                p.SpisZn = cols[2];
+                p.CisloJednaci = cols[3];
+                p.Typ = cols[4];
+                p.Zadatel = cols[5];
+                p.Vec = cols[6];
+                p.DatumVydani = Convert.ToDateTime(cols[7]);
+             
+
+                output.Add(p);
+            }
+
+            return output;
+        }
+
+        public static List<UkonModel> ConvertToUkonModels(this List<string> lines)
+        {
+            List<UkonModel> output = new();
+            if (lines.Count > 0)
+            {
+                lines.RemoveAt(lines.Count - 1);
+            }
+            foreach (string line in lines)
+            {
+                string[] cols = line.Split("&^&");
+
+                UkonModel p = new();
+                p.Id = int.Parse(cols[0]);
+                p.SpisId = int.Parse(cols[1]);
+                p.CisloJednaci = cols[2];
+                p.Typ = cols[3];
+                p.Vydani = Convert.ToDateTime(cols[4]);
+
 
                 output.Add(p);
             }

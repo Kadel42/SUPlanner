@@ -49,6 +49,25 @@ namespace SUPlannerLibraries
             
         }
 
+        public void CreateStat(StatistikaModel model)
+        {
+            List<StatistikaModel> statistikas = GlobalConfig.statistikaFile.FullFilePath().LoadFileAll().ConvertToStatModels();
+            int currentId = 1;
+
+            if (statistikas.Count > 0)
+            {
+                currentId = statistikas.OrderByDescending(x => x.Id).First().Id + 1;
+            }
+            if (model.Id == 0)
+            {
+                model.Id = currentId;
+            }
+
+            statistikas.Add(model);
+            statistikas.SaveToStatFile();
+
+        }
+
         public void CreatePodklad(PodkladModel model)
         {
             List<PodkladModel> podklady = GlobalConfig.podkladFile.FullFilePath().LoadFileAll().ConvertToPodkladModels();
@@ -76,7 +95,20 @@ namespace SUPlannerLibraries
 
         public void CreateUkon(UkonModel ukon)
         {
-            throw new NotImplementedException();
+            List<UkonModel> ukony = GlobalConfig.ukonFile.FullFilePath().LoadFileAll().ConvertToUkonModels();
+            int currentId = 1;
+
+            if (ukony.Count > 0)
+            {
+                currentId = ukony.OrderByDescending(x => x.Id).First().Id + 1;
+            }
+            if (ukon.Id == 0)
+            {
+                ukon.Id = currentId;
+            }
+
+            ukony.Add(ukon);
+            ukony.SaveToUkonFile();
         }
     }
 }

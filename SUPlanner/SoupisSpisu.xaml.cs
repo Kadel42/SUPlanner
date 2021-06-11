@@ -20,10 +20,10 @@ namespace SUPlanner
     /// <summary>
     /// Interaction logic for SoupisSpisu.xaml
     /// </summary>
-    public partial class SoupisSpisu : Window        
+    public partial class SoupisSpisu : Window
     {
         ISelectedSpisRequest selectedSpisRequest;
-        private int indexOfUnusedNumber = 0;
+        private int indexOfUnusedNumber;
         public SoupisSpisu(ISelectedSpisRequest caller)
         {
             InitializeComponent();
@@ -88,7 +88,7 @@ namespace SUPlanner
             podkladDatePicker.SelectedDate = DateTime.Today;
         }
 
-            private void WireUpSoupisSpisu()
+        private void WireUpSoupisSpisu()
         {
             List<PodkladModel> podklady = GlobalConfig.podkladFile.FullFilePath().LoadFileAll ().ConvertToPodkladModels();
             List<PodkladModel> soupisSpisu = new();
