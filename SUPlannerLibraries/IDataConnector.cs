@@ -12,6 +12,8 @@ namespace SUPlannerLibraries
         void CreatePodklad(PodkladModel podklad);
         void CreateUkon(UkonModel ukon);
 
+        void CreateStatistika(StatistikaModel statistika);
+
         List<SpisModel> GetSpis_All();
         List<PodkladModel> GetPodklad_All();
     }

@@ -70,6 +70,30 @@ namespace SUPlanner
                 ukon.Typ = typUkonuTextBox.Text.Trim();
                 ukon.Vydani = (DateTime)datumUkonuDatePicker.SelectedDate;
                 GlobalConfig.Connection.CreateUkon(ukon);
+
+                MessageBoxResult result = MessageBox.Show(
+                    "Uložit do statistiky?", "Statistika", MessageBoxButton.YesNo,
+                    MessageBoxImage.Question, MessageBoxResult.Yes
+                    );
+                switch (result)
+                {
+                    
+                    case MessageBoxResult.Yes:
+                        StatistikaModel statistika = new();
+                        statistika.CisloJednaci = cisloJednaciTextBox.Text.Trim();
+                        statistika.Typ = typUkonuTextBox.Text.Trim();
+                        statistika.DatumVydani = (DateTime)datumUkonuDatePicker.SelectedDate;
+                        statistika.SpisZn = selectedSpisRequest.SelectedSpis().SpisZn;
+                        statistika.Vec = selectedSpisRequest.SelectedSpis().Vec;
+                        statistika.Zadatel = selectedSpisRequest.SelectedSpis().Zadatel;
+                        GlobalConfig.Connection.CreateStatistika(statistika);
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                    
+                }
+                
+
                 WireUpUkony();
                 cisloJednaciTextBox.Text = "";
                 typUkonuTextBox.Text = "";
@@ -102,6 +126,23 @@ namespace SUPlanner
             }
 
             return isValid;
+
+        }
+
+        private void odebratUkonButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<UkonModel> ukony = GlobalConfig.ukonFile.FullFilePath().LoadFileAll().ConvertToUkonModels();
+            UkonModel ukonModel = (UkonModel)ukonyDataGrid.SelectedItem;
+
+            if (!(ukonModel == null))
+            {
+                ukony.RemoveUkonFromFile(ukonModel.Id);
+                WireUpUkony();
+            }
+            else
+            {
+                MessageBox.Show("Nebyl vybrán žádný prvek.");
+            }
 
         }
     }

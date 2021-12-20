@@ -49,7 +49,7 @@ namespace SUPlannerLibraries
             
         }
 
-        public void CreateStat(StatistikaModel model)
+        public void CreateStatistika(StatistikaModel model)
         {
             List<StatistikaModel> statistikas = GlobalConfig.statistikaFile.FullFilePath().LoadFileAll().ConvertToStatModels();
             int currentId = 1;

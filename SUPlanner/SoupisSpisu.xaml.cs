@@ -127,7 +127,7 @@ namespace SUPlanner
             if (Validate())
             {
                 PodkladModel podklad = new();
-                podklad.Cislo = SetRollerCisla()[0];
+                podklad.Cislo = int.Parse(cisloPodkladTextBox.Text);
                 podklad.SpisId = selectedSpisRequest.SelectedSpis().Id;
                 podklad.Podklad = podkladTextBox.Text.Trim();
                 podklad.DatumPridani = (DateTime)podkladDatePicker.SelectedDate;

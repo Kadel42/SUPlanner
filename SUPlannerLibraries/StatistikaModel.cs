@@ -9,7 +9,6 @@ namespace SUPlannerLibraries
     public class StatistikaModel
     {
         public int Id { get; set; }
-        public int UkonId { get; set; }
         public string SpisZn { get; set; }
         public string CisloJednaci { get; set; }
         public string Typ { get; set; }

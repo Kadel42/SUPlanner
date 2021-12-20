@@ -64,7 +64,7 @@ namespace SUPlannerLibraries
             string statLine = "";
             foreach (StatistikaModel p in models)
             {
-                statLine += ($"{ p.Id }&^&{ p.UkonId }&^&{ p.SpisZn }&^&{ p.CisloJednaci }&^&{ p.Typ }&^&{ p.Zadatel }&^&{ p.Vec }&^&{ p.DatumVydani }&|&");
+                statLine += ($"{ p.Id }&^&{ p.SpisZn }&^&{ p.CisloJednaci }&^&{ p.Typ }&^&{ p.Zadatel }&^&{ p.Vec }&^&{ p.DatumVydani }&|&");
             }
 
             File.WriteAllText(GlobalConfig.statistikaFile.FullFilePath(), statLine);
@@ -137,6 +137,40 @@ namespace SUPlannerLibraries
 
             }
             File.WriteAllText(GlobalConfig.podkladFile.FullFilePath(), podklad);
+        }
+
+        public static void RemoveUkonFromFile(this List<UkonModel> models, int iD)
+        {
+            string ukon = "";
+            foreach (UkonModel p in models)
+            {
+                if (p.Id == iD)
+                {
+                    continue;
+                }
+                else
+                {
+                    ukon += ($"{ p.Id }&^&{ p.SpisId }&^&{ p.CisloJednaci }&^&{ p.Typ }&^&{ p.Vydani }&|&");
+                }
+            }
+            File.WriteAllText(GlobalConfig.ukonFile.FullFilePath(), ukon);
+        }
+
+        public static void RemoveStatistikaFromFile(this List<StatistikaModel> models, int iD)
+        {
+            string stat = "";
+            foreach (StatistikaModel p in models)
+            {
+                if (p.Id == iD)
+                {
+                    continue;
+                }
+                else
+                {
+                    stat += ($"{ p.Id }&^&{ p.SpisZn }&^&{ p.CisloJednaci }&^&{ p.Typ }&^&{ p.Zadatel }&^&{ p.Vec }&^&{ p.DatumVydani }&|&");
+                }
+            }
+            File.WriteAllText(GlobalConfig.statistikaFile.FullFilePath(), stat);
         }
 
         public static List<PodkladModel> ConvertToPodkladModels(this List<string> lines)
@@ -218,13 +252,12 @@ namespace SUPlannerLibraries
 
                 StatistikaModel p = new();
                 p.Id = int.Parse(cols[0]);
-                p.UkonId = int.Parse(cols[1]);
-                p.SpisZn = cols[2];
-                p.CisloJednaci = cols[3];
-                p.Typ = cols[4];
-                p.Zadatel = cols[5];
-                p.Vec = cols[6];
-                p.DatumVydani = Convert.ToDateTime(cols[7]);
+                p.SpisZn = cols[1];
+                p.CisloJednaci = cols[2];
+                p.Typ = cols[3];
+                p.Zadatel = cols[4];
+                p.Vec = cols[5];
+                p.DatumVydani = Convert.ToDateTime(cols[6]);
              
 
                 output.Add(p);
