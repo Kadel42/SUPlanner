@@ -79,6 +79,8 @@ namespace SUPlannerLibraries
             }
 
             model.Id = currentId;
+           
+
             podklady.Add(model);
             podklady.SaveToPodkladFile();
         }

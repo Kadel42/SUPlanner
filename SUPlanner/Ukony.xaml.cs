@@ -3,17 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SUPlanner
 {
@@ -26,6 +17,7 @@ namespace SUPlanner
 
         public Ukony(ISelectedSpisRequest caller)
         {
+            
             InitializeComponent();
             selectedSpisRequest = caller;
             WireUpUkony();
@@ -61,6 +53,7 @@ namespace SUPlanner
 
         private void pridatUkonButton_Click(object sender, RoutedEventArgs e)
         {
+           
 
             if (Validate())
             {
@@ -92,7 +85,43 @@ namespace SUPlanner
                         break;
                     
                 }
-                
+
+                result = MessageBox.Show("Uložit do soupisu spisu?", 
+                    "Soupis spisu", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        PodkladModel podklad = new();
+                        List<PodkladModel> podklady = GlobalConfig.podkladFile.FullFilePath().LoadFileAll().ConvertToPodkladModels();
+                        List<PodkladModel> selectedSpisPodklady = new();
+                        int spisId = selectedSpisRequest.SelectedSpis().Id;
+
+                        foreach (PodkladModel selectedPodklad in podklady)
+                        {
+                            if (selectedPodklad.SpisId == spisId)
+                            {
+                                selectedSpisPodklady.Add(selectedPodklad);
+                            }
+                        }
+
+                        int currentCislo = 1;
+
+                        if (selectedSpisPodklady.Count > 0)
+                        {
+                            currentCislo = selectedSpisPodklady.OrderByDescending(x => x.Id).First().Id + 1;
+                        }
+
+                        podklad.Cislo = currentCislo;
+                        podklad.SpisId = selectedSpisRequest.SelectedSpis().Id;
+                        podklad.Podklad = typUkonuTextBox.Text.Trim();
+                        podklad.DatumPridani = (DateTime)datumUkonuDatePicker.SelectedDate;
+                        GlobalConfig.Connection.CreatePodklad(podklad);
+                        
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                   
+                }
 
                 WireUpUkony();
                 cisloJednaciTextBox.Text = "";

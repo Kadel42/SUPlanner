@@ -24,6 +24,8 @@ namespace SUPlanner
     /// </summary>
     public partial class MainWindow : Window, ISpisRequest, ISelectedSpisRequest
     {
+
+        
         public MainWindow()
         {
             if (!Directory.Exists(GlobalConfig.filePath))
