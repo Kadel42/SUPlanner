@@ -83,7 +83,7 @@ namespace SUPlanner
             {
                 Notes notes = new(this);
 
-                notes.Show();
+                notes.ShowDialog();
             }
             
         }
@@ -93,7 +93,7 @@ namespace SUPlanner
             spisyDataGrid.SelectedIndex = -1;
             Spis spis = new(this);
             
-            spis.Show();
+            spis.ShowDialog();
         }
 
         private void soupisButton_Click(object sender, RoutedEventArgs e)
@@ -107,7 +107,7 @@ namespace SUPlanner
             {
                 SoupisSpisu soupis = new(this);
 
-                soupis.Show();
+                soupis.ShowDialog();
             }
             
         }
@@ -180,7 +180,7 @@ namespace SUPlanner
             {
                 Spis spis = new(this);
 
-                spis.Show();
+                spis.ShowDialog();
             }
             
         }
@@ -188,7 +188,7 @@ namespace SUPlanner
         private void statistikaButton_Click(object sender, RoutedEventArgs e)
         {
             Statistika statistika = new();
-            statistika.Show();
+            statistika.ShowDialog();
         }
 
         private void ukonyButton_Click(object sender, RoutedEventArgs e)
@@ -201,7 +201,7 @@ namespace SUPlanner
             {
                 Ukony ukony = new(this);
 
-                ukony.Show();
+                ukony.ShowDialog();
             }
             
         }

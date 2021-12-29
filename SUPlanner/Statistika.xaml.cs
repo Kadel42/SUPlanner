@@ -128,5 +128,11 @@ namespace SUPlanner
             return isValid;
 
         }
+
+        private void tiskStatButton_Click(object sender, RoutedEventArgs e)
+        {
+            Tisk tisk = new();
+            tisk.ShowDialog();
+        }
     }
 }
